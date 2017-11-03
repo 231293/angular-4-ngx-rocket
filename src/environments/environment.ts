@@ -5,6 +5,5 @@
 
 export const environment = {
   production: false,
-  version: '(dev)',
   serverUrl: 'https://api.chucknorris.io'
 };
