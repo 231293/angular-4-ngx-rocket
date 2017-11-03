@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
+import 'rxjs/Rx';
 export interface Credentials {
   // Customize received credentials here
   username: string;

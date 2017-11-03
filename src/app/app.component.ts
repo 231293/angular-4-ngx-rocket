@@ -7,12 +7,10 @@ import 'rxjs/add/operator/mergeMap';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../environments/environment';
 import { Logger } from './core/logger.service';
-import { I18nService } from './core/i18n.service';
 
 const log = new Logger('App');
 
@@ -25,9 +23,7 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
-              private titleService: Title,
-              private translateService: TranslateService,
-              private i18nService: I18nService) { }
+              private titleService: Title) { }
 
   ngOnInit() {
     // Setup logger
@@ -37,13 +33,11 @@ export class AppComponent implements OnInit {
 
     log.debug('init');
 
-    // Setup translations
-    this.i18nService.init(environment.defaultLanguage, environment.supportedLanguages);
 
     const onNavigationEnd = this.router.events.filter(event => event instanceof NavigationEnd);
 
-    // Change page title on navigation or language change, based on route data
-    Observable.merge(this.translateService.onLangChange, onNavigationEnd)
+    // Change page title on navigation
+    Observable.merge(onNavigationEnd)
       .map(() => {
         let route = this.activatedRoute;
         while (route.firstChild) {
@@ -56,7 +50,7 @@ export class AppComponent implements OnInit {
       .subscribe(event => {
         const title = event['title'];
         if (title) {
-          this.titleService.setTitle(this.translateService.instant(title));
+          this.titleService.setTitle(title);
         }
       });
   }

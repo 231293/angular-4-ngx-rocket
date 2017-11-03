@@ -6,7 +6,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { environment } from '../../environments/environment';
 import { Logger } from '../core/logger.service';
-import { I18nService } from '../core/i18n.service';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 
 const log = new Logger('Login');
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private i18nService: I18nService,
               private authenticationService: AuthenticationService) {
     this.createForm();
   }
@@ -46,18 +44,6 @@ export class LoginComponent implements OnInit {
         log.debug(`Login error: ${error}`);
         this.error = error;
       });
-  }
-
-  setLanguage(language: string) {
-    this.i18nService.language = language;
-  }
-
-  get currentLanguage(): string {
-    return this.i18nService.language;
-  }
-
-  get languages(): string[] {
-    return this.i18nService.supportedLanguages;
   }
 
   private createForm() {
