@@ -1,29 +1,15 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-
-const routes = {
-  quote: (c: RandomQuoteContext) => `/jokes/random?category=${c.category}`
-};
-
-export interface RandomQuoteContext {
-  // The quote's category: 'nerdy', 'explicit'...
-  category: string;
-}
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class QuoteService {
 
-  constructor(private http: Http) { }
+  constructor(private httpClient: HttpClient) { }
 
-  getRandomQuote(context: RandomQuoteContext): Observable<string> {
-    return this.http.get(routes.quote(context), { cache: true })
-      .map((res: Response) => res.json())
-      .map(body => body.value)
-      .catch(() => Observable.of('Error, could not load joke :-('));
+  getRandomQuote() {
+    const url = `${environment.serverUrl}/jokes/random?category=dev`;
+    return this.httpClient.get(url);
   }
 
 }

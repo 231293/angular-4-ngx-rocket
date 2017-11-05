@@ -14,13 +14,15 @@ export class HomeComponent implements OnInit {
   quote: string;
   isLoading: boolean;
 
-  constructor(private quoteService: QuoteService) {}
+  constructor(private quoteService: QuoteService) { }
 
   ngOnInit() {
     this.isLoading = true;
-    this.quoteService.getRandomQuote({ category: 'dev' })
+    this.quoteService.getRandomQuote()
       .finally(() => { this.isLoading = false; })
-      .subscribe((quote: string) => { this.quote = quote; });
+      .subscribe((quote: any) => {
+        this.quote = quote.value;
+      });
   }
 
 }

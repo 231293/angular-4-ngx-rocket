@@ -10,17 +10,14 @@
     "test": "ng test",
     "test:ci": "npm run lint -s && ng test --single-run --code-coverage",
     "e2e": "ng e2e",
-    "docs": "hads ./docs -o",
     "env": "ngx-scripts env2json npm_package_version",
     "generate": "ng generate"
   },
   "dependencies": {
-    "@angular/animations": "^4.2.6",
-    "@angular/common": "^4.2.6",
+    "@angular/common": "^4.4.6",
     "@angular/compiler": "^4.2.6",
     "@angular/core": "^4.2.6",
     "@angular/forms": "^4.2.6",
-    "@angular/http": "^4.2.6",
     "@angular/platform-browser": "^4.2.6",
     "@angular/platform-browser-dynamic": "^4.2.6",
     "@angular/router": "^4.2.6",
