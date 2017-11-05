@@ -1,7 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ShellComponent } from './shell/shell.component';
@@ -9,6 +9,7 @@ import { HeaderComponent } from './shell/header/header.component';
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthenticationGuard } from './authentication/authentication.guard';
 import { FooterComponent } from './shell/footer/footer.component';
+import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 
 @NgModule({
   imports: [
@@ -24,7 +25,12 @@ import { FooterComponent } from './shell/footer/footer.component';
   ],
   providers: [
     AuthenticationService,
-    AuthenticationGuard
+    AuthenticationGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true
+    }
   ]
 })
 export class CoreModule {
